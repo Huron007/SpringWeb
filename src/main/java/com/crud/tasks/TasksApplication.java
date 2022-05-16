@@ -10,10 +10,15 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-public class TasksApplication {
+public class TasksApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 
 		SpringApplication.run(TasksApplication.class, args);
+	}
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application){
+		return application.sources(TasksApplication.class);
 	}
 }
