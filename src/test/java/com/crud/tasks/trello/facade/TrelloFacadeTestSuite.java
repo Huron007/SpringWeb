@@ -1,6 +1,7 @@
 package com.crud.tasks.trello.facade;
 
 import com.crud.tasks.domain.*;
+import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.mapper.TrelloMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class TrelloFacadeTestSuite {
 
     @Autowired
     private TrelloMapper trelloMapper;
+
+    @Autowired
+    private TaskMapper taskMapper;
 
     @Test
     public void trelloMapperTest(){
@@ -50,5 +54,24 @@ public class TrelloFacadeTestSuite {
         assertEquals(trelloListDtos, mappedTrelloListDto);
         assertEquals(trelloBoards, mappedTrelloBoard);
         assertEquals(trelloBoardDtos, mappedTrelloBoardDto);
+    }
+
+    @Test
+    public void taskMapperTest(){
+        //Given
+        Task task = new Task(1L, "Test", "Test");
+        TaskDto taskDto = new TaskDto(1L, "Test", "Test");
+        List<Task> taskList = new ArrayList<>();
+        taskList.add(task);
+        List<TaskDto> taskDtoList = new ArrayList<>();
+        taskDtoList.add(taskDto);
+        //When
+        Task mappedTask = taskMapper.mapToTask(taskDto);
+        TaskDto mappedTaskDto = taskMapper.mapToTaskDto(task);
+        List<TaskDto> mappedTaskDtoList = taskMapper.mapToTaskDtoList(taskList);
+        //Then
+        assertEquals(task, mappedTask);
+        assertEquals(taskDto, mappedTaskDto);
+        assertEquals(taskDtoList, mappedTaskDtoList);
     }
 }
