@@ -11,8 +11,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -26,8 +24,7 @@ public class SimpleEmailService {
     public void send(final Mail mail){
         log.info("Starting email preparation...");
         try{
-            SimpleMailMessage mailMessage = createMailMessage(mail);
-            javaMailSender.send(mailMessage);
+            javaMailSender.send(createMimeMessage(mail));
             log.info("Email has been sent.");
         } catch (MailException e){
             log.error("Failed to process email sending: " + e.getMessage(), e);
